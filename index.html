@@ -370,6 +370,10 @@
           <button class="func-btn" id="btnChangeTableBg">修改表格背景</button>
           <button class="func-btn" id="btnChangeHeaderBg">修改表头背景</button>
           <button class="func-btn" id="btnAddColumn">增加一列</button>
+          <button class="func-btn" id="btnChangeFormTextColor">修改表单字体颜色</button>
+          <button class="func-btn" id="btnChangeTableTextColor">修改表格字体颜色</button>
+          <button class="func-btn" id="btnChangeFormFontSize">调整表单字体大小</button>
+          <button class="func-btn" id="btnChangeTableFontSize">调整表格字体大小</button>
         </div>
       </div>
     </div>
@@ -554,6 +558,58 @@
     document.querySelectorAll('.resize-handle').forEach(handle => {
       const th = handle.parentElement;
       addResizeHandler(handle, th);
+    });
+
+    // 8. 修改表单字体颜色
+    document.getElementById('btnChangeFormTextColor').addEventListener('click', function() {
+      colorPicker.value = '#333333';
+      colorPicker.onchange = function() {
+        const labels = document.querySelectorAll('.top-content label');
+        const inputs = document.querySelectorAll('.top-content input');
+        labels.forEach(label => {
+          label.style.color = this.value;
+        });
+        inputs.forEach(input => {
+          input.style.color = this.value;
+        });
+      };
+      colorPicker.click();
+    });
+
+    // 9. 修改表格字体颜色
+    document.getElementById('btnChangeTableTextColor').addEventListener('click', function() {
+      colorPicker.value = '#333333';
+      colorPicker.onchange = function() {
+        const cells = document.querySelectorAll('#tableBody td');
+        cells.forEach(cell => {
+          cell.style.color = this.value;
+        });
+      };
+      colorPicker.click();
+    });
+
+    // 10. 调整表单字体大小
+    document.getElementById('btnChangeFormFontSize').addEventListener('click', function() {
+      const size = prompt('请输入表单字体大小(px):', '13');
+      if (size === null || isNaN(size)) return;
+      
+      const labels = document.querySelectorAll('.top-content label');
+      const inputs = document.querySelectorAll('.top-content input');
+      labels.forEach(label => {
+        label.style.fontSize = size + 'px';
+      });
+      inputs.forEach(input => {
+        input.style.fontSize = size + 'px';
+      });
+    });
+
+    // 11. 调整表格字体大小
+    document.getElementById('btnChangeTableFontSize').addEventListener('click', function() {
+      const size = prompt('请输入表格字体大小(px):', '12');
+      if (size === null || isNaN(size)) return;
+      
+      const table = document.getElementById('myTable');
+      table.style.fontSize = size + 'px';
     });
   </script>
 </body>
